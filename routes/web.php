@@ -4,6 +4,7 @@ use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeachersController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,9 @@ Route::view('/', 'welcome');
 Route::get('dashboard', [DashboardControler::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
+Route::patch('status/{id}', [UserController::class, 'status'])
+    ->middleware(['auth', 'verified'])
+    ->name('users.status');
 Route::get('dashboard/teacher', [DashboardControler::class, 'teachers'])
     ->middleware(['auth', 'verified'])
     ->name('teachers');
