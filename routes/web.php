@@ -22,6 +22,9 @@ Route::get('dashboard/administration', [DashboardControler::class, 'administrati
 Route::get('dashboard/student', [DashboardControler::class, 'students'])
     ->middleware(['auth', 'verified'])
     ->name('students');
+Route::get('dashboard/users', [DashboardControler::class, 'users'])
+    ->middleware(['auth', 'verified'])
+    ->name('users');
 Route::resource('teachers', TeachersController::class)
     ->middleware(['auth', 'verified']);
 Route::resource('administration', AdministrationController::class)
