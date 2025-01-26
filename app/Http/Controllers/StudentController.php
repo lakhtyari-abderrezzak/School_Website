@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -21,15 +23,27 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'student')->get();
+        return view('students.create', compact('users'));
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
-        //
+       $feilds = $request->validate([
+        'user_id' => 'required',
+        'name' => 'required|max:100',
+        'phone' => 'nullable', 
+        'class' => 'required|max:50',
+        'enrollment_date' =>'required|date',
+       ]);
+
+       Student::create($feilds);
+
+       return redirect()->route('students')->with('success', 'Created Successfully');
     }
 
     /**
@@ -45,15 +59,26 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $users = User::where('role', 'student')->get();
+        return view('students.edit', compact('student', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(Request $request, Student $student)
     {
-        //
+        $feilds = $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|max:100',
+            'phone' => 'nullable', 
+            'class' => 'required|max:50',
+            'enrollment_date' =>'required|date',
+           ]);
+           $student->update($feilds);
+
+       return redirect()->route('students')->with('success', 'Updated Successfully');
+
     }
 
     /**
@@ -61,6 +86,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        
+        return redirect()->route('students')->with('success', 'Deleted Successfully');
     }
 }
