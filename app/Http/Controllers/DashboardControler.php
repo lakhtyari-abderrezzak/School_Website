@@ -32,4 +32,11 @@ class DashboardControler extends Controller
         })->paginate(80);
         return view('dash.students', compact('students'));
     }
+    public function users(Request $request){
+        $searchTerm = $request->search;
+        $users = User::when($searchTerm, function($query, $searchTerm){
+            $query->where('name', 'like', "%$searchTerm%");
+        })->get();
+        return view('dash.users', compact('users'));
+    }
 }
