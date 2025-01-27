@@ -9,6 +9,7 @@
             <h2 class="text-2xl font-semibold mb-6">Users</h2>
             <!-- Table -->
             <div class="overflow-x-auto">
+              <x-success />
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-indigo-600 text-white">
                         <tr>
@@ -42,9 +43,13 @@
                                             </svg>
                                         </button>
                                     </form>
+                                    
                                 </td>
                             </tr>
                         @endforeach
+                        @error('status')
+                                      <div class="text-red-700 mt-2">{{ $message }}</div>   
+                                    @enderror
                     </tbody>
                 </table>
             </div>
