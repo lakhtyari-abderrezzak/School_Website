@@ -17,13 +17,6 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       // Check if the user is authenticated
-       if (Auth::check()) {
-        // If the user is authenticated, check their role
-        if (Auth::user()->role !== 'student') {
-            return redirect()->route('login'); // Redirect to login if not a student
-        }
-    } 
         return $next($request);
     }
 }
