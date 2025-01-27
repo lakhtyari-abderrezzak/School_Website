@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teachers>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
  */
-class TeachersFactory extends Factory
+class TeacherFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,10 @@ class TeachersFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'subject_id' => Subject::factory(),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'phone' => fake()->phoneNumber(),
+            'full_name' => fake()->name(),
+            'phone' => fake()->phoneNumber()
         ];
     }
 }
