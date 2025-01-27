@@ -65,7 +65,8 @@
                         @enderror
                     </tbody>
                 </table>
-            </div>
+                {{ $users->links()}}
+              </div>
         </div>
     </div>
 </x-app-layout>
