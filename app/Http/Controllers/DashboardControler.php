@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Subject;
-use App\Models\Teachers;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,11 +21,10 @@ class DashboardControler extends Controller
     {
         $searchTerm = $request->search;
 
-        $teachers = Teachers::when($searchTerm, function($query, $searchTerm){
+        $teachers = Teacher::when($searchTerm, function($query, $searchTerm){
             $query->where('name', 'like', "%$searchTerm%")
             ->orwhere('last_name', 'like', "%$searchTerm%");
         })->paginate(30);
-        
         return view('dash.teachers', compact('teachers'));
     }
     public function administration()
