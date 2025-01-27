@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,9 @@ class DashboardControler extends Controller
             ->orWhere('email', 'like', "%$searchTerm%");
         })->paginate(50);
         return view('dash.users', compact('users'));
+    }
+    public function classes(){
+        $subjects = Subject::all();
+        return view('dash.classes', compact('subjects'));
     }
 }
