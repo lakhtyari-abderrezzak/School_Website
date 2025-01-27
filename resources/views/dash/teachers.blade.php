@@ -14,7 +14,7 @@
                         <tr>
                             <th class="py-3 px-6 text-left">Name</th>
                             <th class="py-3 px-6 text-left">Phone</th>
-                            <th class="py-3 px-6 text-left"></th>
+                            <th class="py-3 px-6 text-left">Subject</th>
                             <th class="py-3 px-6 text-left"></th>
                         </tr>
                     </thead>
@@ -22,11 +22,25 @@
                         <!-- Teacher 1 -->
                         @foreach ($teachers as $teacher)
                             <tr class="border-b hover:bg-gray-100">
-                                <td class="py-3 px-6">{{ $teacher->first_name . ' ' . $teacher->last_name }} </td>
+                                <td class="py-3 px-6">{{ $teacher->full_name }} </td>
                                 <td class="py-3 px-6"> {{$teacher->phone}} </td>
-                                <td class="py-3 px-6"></td>
+                                <td class="py-3 px-6"> {{ $teacher->subject->name }}</td>
                                 <td class="py-3 px-6">
-                                    <span class="bg-green-500 text-white py-1 px-3 rounded-full">Active</span>
+                                     <!-- Edit Link -->
+                                     <a href="{{ route('teachers.edit', $teacher) }}" 
+                                        class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-200">
+                                         Edit
+                                     </a>
+                                 
+                                     <!-- Delete Form -->
+                                     <form action="{{ route('teachers.destroy', $student->id) }}" method="POST" class="inline">
+                                         @csrf 
+                                         @method('DELETE')
+                                         <button type="submit" 
+                                                 class="text-red-500 hover:text-red-700 font-semibold transition-colors duration-200">
+                                             Delete
+                                         </button>
+                                     </form>
                                 </td>
                             </tr>
                         @endforeach
