@@ -35,7 +35,8 @@ class DashboardControler extends Controller
     public function users(Request $request){
         $searchTerm = $request->search;
         $users = User::when($searchTerm, function($query, $searchTerm){
-            $query->where('name', 'like', "%$searchTerm%");
+            $query->where('name', 'like', "%$searchTerm%")
+            ->orWhere('email', 'like', "%$searchTerm%");
         })->get();
         return view('dash.users', compact('users'));
     }
