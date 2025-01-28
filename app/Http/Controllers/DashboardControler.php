@@ -22,8 +22,8 @@ class DashboardControler extends Controller
         $searchTerm = $request->search;
 
         $teachers = Teacher::when($searchTerm, function($query, $searchTerm){
-            $query->where('name', 'like', "%$searchTerm%")
-            ->orwhere('last_name', 'like', "%$searchTerm%");
+            $query->where('full_name', 'like', "%$searchTerm%");
+            
         })->paginate(30);
         return view('dash.teachers', compact('teachers'));
     }
