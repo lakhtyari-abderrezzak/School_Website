@@ -4,7 +4,7 @@ use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\DashboardControler;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\TeachersController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +32,7 @@ Route::get('dashboard/student', [DashboardControler::class, 'students'])
 Route::get('dashboard/users', [DashboardControler::class, 'users'])
     ->middleware(['auth', 'verified'])
     ->name('users');
-Route::resource('teachers', TeachersController::class)
+Route::resource('teachers', TeacherController::class)
     ->middleware(['auth', 'verified']);
 Route::resource('administration', AdministrationController::class)
     ->middleware(['auth', 'verified']);
