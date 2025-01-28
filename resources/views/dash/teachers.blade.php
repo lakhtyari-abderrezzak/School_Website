@@ -2,13 +2,25 @@
     <div class="flex h-screen">
         <x-side></x-side>
         <div class="flex-1 p-6">
-            <div class="flex justify-between items-center mb-8">
-                <div class="text-xl font-semibold">Welcome back, {{ Auth::user()->role }}</div>
-
-            </div>
+          <x-success />
             <h2 class="text-2xl font-semibold mb-6">Teachers</h2>
             <!-- Table -->
             <div class="overflow-x-auto">
+                <a href="{{route('teachers.create')}}" class="text-white bg-indigo-600 hover:bg-indigo-800 rounded-lg p-2 ">Add a New Teacher</a>
+                <form method="GET" action="{{ route('teachers') }}" class="my-4 flex items-center space-x-4 w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                    <!-- Search input with design improvements -->
+                    <input class="form-control rounded-lg border border-gray-300 shadow-sm p-2 w-full sm:w-auto" 
+                           type="text" name="search" placeholder="Search students..." 
+                           value="{{ request()->query('search') }}" 
+                           style="transition: all 0.3s ease-in-out;">
+            
+                    <!-- Search button with hover and transition effect -->
+                    <button class="btn btn-primary p-2 px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-200" 
+                            type="submit">
+                        Search
+                    </button>
+                </form>
+            
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-indigo-600 text-white">
                         <tr>
@@ -33,7 +45,7 @@
                                      </a>
                                  
                                      <!-- Delete Form -->
-                                     <form action="{{ route('teachers.destroy', $student->id) }}" method="POST" class="inline">
+                                     <form action="{{ route('teachers.destroy', $teacher) }}" method="POST" class="inline">
                                          @csrf 
                                          @method('DELETE')
                                          <button type="submit" 
