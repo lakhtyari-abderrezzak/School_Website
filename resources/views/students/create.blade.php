@@ -6,17 +6,19 @@
             <h2 class="text-2xl font-semibold mb-6">Add Student</h2>
             <!-- Table -->
             <div class="overflow-x-auto">
-                <form action="{{route('students.store')}}" method="POST" class="card w-1/2 mx-auto p-8 bg-white shadow-lg rounded-lg space-y-4">
+                <form action="{{ route('students.store') }}" method="POST"
+                    class="card w-1/2 mx-auto p-8 bg-white shadow-lg rounded-lg space-y-4">
                     @csrf
-            
+
                     <div class="flex flex-col space-y-2">
                         <label for="uesr_id" class="font-semibold text-gray-700">User Name</label>
-                        <select name="user_id" id="user_id" 
-                        class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('user_id') }}">
-                       
+                        <select name="user_id" id="user_id"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="{{ old('user_id') }}">
+
                             <option disabled selected>...</option>
                             @foreach ($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
                         @error('user_id')
@@ -24,43 +26,55 @@
                         @enderror
                     </div>
                     <div class="flex flex-col space-y-2">
+                        <label for="user_id" class="font-semibold text-gray-700">Subject</label>
+                        <select name="subject_id" id="subject_id"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option selected disabled>...</option>
+                            @foreach ($subjects as $subject)
+                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('subject_id')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col space-y-2">
                         <label for="name" class="font-semibold text-gray-700">Name</label>
-                        <input type="text" name="name" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('name') }}">
+                        <input type="text" name="name"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="{{ old('name') }}">
                         @error('name')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-            
+
                     <div class="flex flex-col space-y-2">
                         <label for="phone" class="font-semibold text-gray-700">Phone</label>
-                        <input type="text" name="phone" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{old('phone')}}">
+                        <input type="text" name="phone"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="{{ old('phone') }}">
                         @error('phone')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-            
-                    <div class="flex flex-col space-y-2">
-                        <label for="class" class="font-semibold text-gray-700">Class</label>
-                        <input type="text" name="class" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{old('class')}}">
-                        @error('class')
-                            <div class="text-red-500 text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
-            
+
                     <div class="flex flex-col space-y-2">
                         <label for="enrollment_date" class="font-semibold text-gray-700">Enrollment Date</label>
-                        <input type="date" name="enrollment_date" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{old('enrollment_date')}}">
+                        <input type="date" name="enrollment_date"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="{{ old('enrollment_date') }}">
                         @error('enrollment_date')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-            
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4">
+
+                    <button type="submit"
+                        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4">
                         Create
                     </button>
                 </form>
             </div>
-            
+
 
 
         </div>

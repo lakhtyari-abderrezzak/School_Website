@@ -22,6 +22,18 @@
                         @enderror
                     </div>
                     <div class="flex flex-col space-y-2">
+                        <label for="user_id" class="font-semibold text-gray-700">Subject</label>
+                        <select name="subject_id" id="subject_id" 
+                        class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @foreach ($subjects as $subject)
+                                <option {{ $student->subject_id === $subject->id ? 'Selected' : ''}} value="{{$subject->id}}">{{$subject->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('subject_id')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col space-y-2">
                         <label for="name" class="font-semibold text-gray-700">Name</label>
                         <input type="text" name="name" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $student->name }}">
                         @error('name')
@@ -33,14 +45,6 @@
                         <label for="phone" class="font-semibold text-gray-700">Phone</label>
                         <input type="text" name="phone" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{$student->phone}}">
                         @error('phone')
-                            <div class="text-red-500 text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
-            
-                    <div class="flex flex-col space-y-2">
-                        <label for="class" class="font-semibold text-gray-700">Class</label>
-                        <input type="text" name="class" class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{$student->class}}">
-                        @error('class')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>

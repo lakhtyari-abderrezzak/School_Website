@@ -39,7 +39,7 @@
                             <tr class="border-b hover:bg-gray-100">
                                 <td class="py-3 px-6">{{ $student->name }}</td>
                                 <td class="py-3 px-6">{{ $student->phone }}</td>
-                                <td class="py-3 px-6">{{ $student->class }}</td>
+                                <td class="py-3 px-6">{{ $student->subject->name }}</td>
                                 <td class="py-3 px-6">
                                     <span class="bg-green-500 text-white py-1 px-3 rounded-full">{{ $student->enrollment_date }}</span>
                                 </td>

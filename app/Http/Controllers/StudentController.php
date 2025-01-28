@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,9 @@ class StudentController extends Controller
      */
     public function create()
     {
+        $subjects = Subject::all();
         $users = User::where('role', 'student')->get();
-        return view('students.create', compact('users'));
+        return view('students.create', compact('users', 'subjects'));
 
     }
 
@@ -35,9 +37,9 @@ class StudentController extends Controller
     {
        $feilds = $request->validate([
         'user_id' => 'required',
+        'subject_id' => 'required',
         'name' => 'required|max:100',
         'phone' => 'nullable', 
-        'class' => 'required|max:50',
         'enrollment_date' =>'required|date',
        ]);
 
@@ -59,8 +61,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        $subjects = Subject::all();
         $users = User::where('role', 'student')->get();
-        return view('students.edit', compact('student', 'users'));
+        return view('students.edit', compact('student', 'users', 'subjects'));
     }
 
     /**
@@ -70,9 +73,9 @@ class StudentController extends Controller
     {
         $feilds = $request->validate([
             'user_id' => 'required',
+            'subject_id' => 'required',
             'name' => 'required|max:100',
             'phone' => 'nullable', 
-            'class' => 'required|max:50',
             'enrollment_date' =>'required|date',
            ]);
            $student->update($feilds);
