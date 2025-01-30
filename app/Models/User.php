@@ -25,8 +25,22 @@ class User extends Authenticatable
         'status'
     ];
 
-    public function student(){
+    public function student()
+    {
         return $this->hasOne(Student::class);
+    }
+
+    public function isPrincipal()
+    {
+        $this->role = 'principal';
+    }
+    public function isAdministrator()
+    {
+        $this->role = 'administration';
+    }
+    public function isTeacher()
+    {
+        $this->role = 'teacher';
     }
 
     /**
