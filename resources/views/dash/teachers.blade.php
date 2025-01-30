@@ -24,6 +24,7 @@
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-indigo-600 text-white">
                         <tr>
+                            <th class="py-3 px-6 text-left">Id</th>
                             <th class="py-3 px-6 text-left">Name</th>
                             <th class="py-3 px-6 text-left">Phone</th>
                             <th class="py-3 px-6 text-left">Subject</th>
@@ -34,6 +35,7 @@
                         <!-- Teacher 1 -->
                         @foreach ($teachers as $teacher)
                             <tr class="border-b hover:bg-gray-100">
+                                <td class="py-3 px-6">{{ $teacher->id }} </td>
                                 <td class="py-3 px-6">{{ $teacher->full_name }} </td>
                                 <td class="py-3 px-6"> {{$teacher->phone}} </td>
                                 <td class="py-3 px-6"> {{ $teacher->subject->name }}</td>
@@ -60,6 +62,7 @@
                     </tbody>
                 </table>
             </div>
+            <div class="mx-4">{{$teachers->links()}}</div>
         </div>
     </div>
 </x-app-layout>
