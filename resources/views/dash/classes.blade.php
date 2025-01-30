@@ -4,8 +4,11 @@
         <div class="flex-1 p-6">
 
             <h2 class="text-2xl font-semibold mb-6">classs</h2>
+
+            <a class=" text-white bg-indigo-600 hover:bg-indigo-800 py-2 px-4 rounded-lg mb-4 " href="{{route('subjects.create')}}">Create New Class</a>
+
             <!-- Table -->
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto mt-4">
 
                 <x-success />
 
