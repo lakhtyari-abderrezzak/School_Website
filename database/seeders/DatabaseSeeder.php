@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Administration;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -17,14 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        Student::factory(5)->create();
-        Teacher::factory(5)->create();
         Subject::factory(8)->create();
+        Student::factory(80)->create();
+        Teacher::factory(25)->create();
+        Administration::factory(4)->create();
 
         User::create([
             'name' => 'Abdo',
             'email' => 'l@gmail.com',
-            'password' => bcrypt(12345678),
+            'password' => bcrypt(12),
             'role' => 'principal'
         ]);
     }
