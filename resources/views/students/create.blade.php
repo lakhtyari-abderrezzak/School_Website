@@ -18,7 +18,7 @@
 
                             <option disabled selected>...</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option value="{{ $user->id }}" {{$user->student ? 'disabled' : '' ;}}>{{ $user->name }}</option>
                             @endforeach
                         </select>
                         @error('user_id')
