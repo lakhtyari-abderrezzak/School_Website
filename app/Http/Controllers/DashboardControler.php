@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administration;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -15,7 +16,8 @@ class DashboardControler extends Controller
         $users = User::all();
         $teachers = User::where('role', 'teacher');
         $administrators = User::where('role', 'administration');
-        return view('dashboard', compact('users', 'teachers', 'administrators'));
+        $students = User::where('role', 'student');
+        return view('dashboard', compact('users', 'teachers', 'administrators', 'students'));
     }
     public function teachers(Request $request)
     {
@@ -24,12 +26,13 @@ class DashboardControler extends Controller
         $teachers = Teacher::when($searchTerm, function($query, $searchTerm){
             $query->where('full_name', 'like', "%$searchTerm%");
             
-        })->paginate(30);
+        })->paginate(15);
         return view('dash.teachers', compact('teachers'));
     }
     public function administration()
     {
-        return view('dash.administration');
+        $administrations = Administration::get();
+        return view('dash.administration', compact('administrations'));
     }
     public function students(Request $request)
     {
@@ -37,15 +40,26 @@ class DashboardControler extends Controller
         $students = Student::when($searchTerm, function($query, $searchTerm){
             $query->where('name', 'like', "%$searchTerm%")
             ->orwhere('class', 'like', "%$searchTerm%");
-        })->paginate(80);
+        })->paginate(15);
         return view('dash.students', compact('students'));
     }
     public function users(Request $request){
-        $searchTerm = $request->search;
-        $users = User::when($searchTerm, function($query, $searchTerm){
-            $query->where('name', 'like', "%$searchTerm%")
-            ->orWhere('email', 'like', "%$searchTerm%");
-        })->paginate(50);
+        $query = User::query();
+
+    // If there's a search query, filter by name or email
+    if ($request->has('search') && $search = $request->input('search')) {
+        $query->where('name', 'like', '%' . $search . '%')
+              ->orWhere('email', 'like', '%' . $search . '%');
+    }
+
+    // If there's a selected role to sort by, filter users by that role
+    if ($request->has('sort_by_role') && $role = $request->input('sort_by_role')) {
+        $query->where('role', $role);
+    }
+
+    // Get paginated users
+    $users = $query->paginate(10);
+
         return view('dash.users', compact('users'));
     }
     public function classes(){
