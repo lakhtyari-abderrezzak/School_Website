@@ -12,13 +12,26 @@
 
                 <x-success />
 
-                <form method="GET" action="{{ route('users') }}" class="my-4 flex items-center space-x-4 w-full sm:w-1/2 lg:w-1/3 mx-auto">
-                    <input class="form-control rounded-lg border border-gray-300 shadow-sm p-2 w-full sm:w-auto" 
-                           type="text" name="search" placeholder="Search students..." 
-                           value="{{ request()->query('search') }}" 
-                           style="transition: all 0.3s ease-in-out;">
-                    <button class="btn btn-primary p-2 px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-200" 
-                            type="submit">
+                <form method="GET" action="{{ route('users') }}"
+                    class="my-4 flex items-center space-x-4 w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                    <input class="form-control rounded-lg border border-gray-300 shadow-sm p-2 w-full sm:w-auto"
+                        type="text" name="search" placeholder="Search students..."
+                        value="{{ request()->query('search') }}" style="transition: all 0.3s ease-in-out;">
+
+                    <select name="sort_by_role"
+                        class="form-control border-2 border-gray-300 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-30">
+                        <option value="">Sort by Role</option>
+                        <option value="teacher" {{ request('sort_by_role') === 'teacher' ? 'selected' : '' }}>Teacher
+                        </option>
+                        <option value="student" {{ request('sort_by_role') === 'student' ? 'selected' : '' }}>Student
+                        </option>
+                        <option value="administration" {{ request('sort_by_role') === 'administration' ? 'selected' : '' }}>Administration
+                        </option>
+                    </select>
+
+                    <button
+                        class="btn btn-primary p-2 px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-200"
+                        type="submit">
                         Search
                     </button>
                 </form>
@@ -28,6 +41,7 @@
                             <th class="py-3 px-6 text-left">Id</th>
                             <th class="py-3 px-6 text-left">Name</th>
                             <th class="py-3 px-6 text-left">Email</th>
+                            <th class="py-3 px-6 text-left">Role</th>
                             <th class="py-3 px-6 text-left">Status</th>
                         </tr>
                     </thead>
@@ -37,6 +51,7 @@
                                 <td class="py-3 px-6"> {{ $user->id }} </td>
                                 <td class="py-3 px-6">{{ $user->name }}</td>
                                 <td class="py-3 px-6">{{ $user->email }}</td>
+                                <td class="py-3 px-6">{{ $user->role }}</td>
                                 <td class="py-3 px-6">
                                     <form action="{{ route('users.status', $user->id) }}" method="POST"
                                         class="flex  align-baseline">
@@ -65,8 +80,8 @@
                         @enderror
                     </tbody>
                 </table>
-                {{ $users->links()}}
-              </div>
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
