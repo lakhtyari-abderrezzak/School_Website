@@ -3,12 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
-class StudentMiddleware
+class IsAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,6 +16,10 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (Auth::user()->role !== 'principal' && Auth::user()->role !== 'administration') {
+            abort(403);
+        }
+        
         return $next($request);
     }
 }

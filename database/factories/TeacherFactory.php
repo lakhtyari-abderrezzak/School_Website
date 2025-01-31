@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Administration>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
  */
-class AdministrationFactory extends Factory
+class TeacherFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +20,8 @@ class AdministrationFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => fake()->name(),
+            'subject_id' => Subject::factory(),
+            'full_name' => fake()->name(),
             'phone' => fake()->phoneNumber()
         ];
     }
