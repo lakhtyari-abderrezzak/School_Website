@@ -17,6 +17,9 @@ Route::get('dashboard', [DashboardControler::class, 'index'])
 Route::patch('status/{id}', [UserController::class, 'status'])
     ->middleware(['auth', 'verified', 'isAdmin'])
     ->name('users.status');
+Route::resource('users', UserController::class)
+    ->middleware(['auth', 'verified', 'isAdmin']);
+
 Route::get('dashboard/teacher', [DashboardControler::class, 'teachers'])
     ->middleware(['auth', 'verified', 'isAdmin'])
     ->name('teachers');
@@ -40,6 +43,7 @@ Route::resource('students', StudentController::class)
     ->middleware(StudentMiddleware::class);
 Route::resource('subjects', SubjectController::class)
     ->middleware(['auth', 'verified', 'isAdmin']);
+
 
 
 Route::view('profile', 'profile')
