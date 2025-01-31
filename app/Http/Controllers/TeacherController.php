@@ -6,6 +6,7 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -44,8 +45,15 @@ class TeacherController extends Controller
         return redirect()->route('teachers')->with('success', 'Updated Successfully');
     }
     public function destroy(Teacher $teacher){
-        $teacher->delete();
-
-        return redirect()->route('teachers')->with('success', 'Deleted Successfully');
+        if (Auth::user()->is_principal) {
+            if ($teacher) {
+                $teacher->delete();
+                return redirect()->route('teachers')->with('success', 'Deleted Successfully');
+            } else {
+                return redirect()->route('teachers')->with('error', 'Teacher not found.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'You do not have permission to delete this teacher.');
+        }
     }
 }
