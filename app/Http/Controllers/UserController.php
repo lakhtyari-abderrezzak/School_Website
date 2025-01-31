@@ -24,11 +24,11 @@ class UserController extends Controller
     }
     public function Update(Request $request, User $user) {
         $feilds = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|max:100',
-            'role' => 'nullable',
-            'status' => 'nullable'
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'string', 'confirmed'],
+            'role' => ['required', 'string', 'max:255'],
+            'status' => ['required', 'string', 'max:255']
         ]);
 
         $user->update($feilds);
