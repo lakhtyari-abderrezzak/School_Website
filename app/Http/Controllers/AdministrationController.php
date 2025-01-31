@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Administration;
-use App\Http\Requests\StoreAdministrationRequest;
-use App\Http\Requests\UpdateAdministrationRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class AdministrationController extends Controller
 {
@@ -21,15 +21,24 @@ class AdministrationController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'administration')->get();
+        return view('administration.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdministrationRequest $request)
+    public function store(Request $request)
     {
-        //
+        $feilds = $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|max:100',
+            'phone' => 'nullable'
+        ]);
+
+        Administration::create($feilds);
+
+        return redirect()->route('administration')->with('success', 'Created');
     }
 
     /**
@@ -45,15 +54,25 @@ class AdministrationController extends Controller
      */
     public function edit(Administration $administration)
     {
-        //
+        $users = User::where('role', 'administration')->get();
+        return view('administration.edit', compact('administration', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdministrationRequest $request, Administration $administration)
+    public function update(Request $request, Administration $administration)
     {
-        //
+        $feilds = $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|max:100',
+            'phone' => 'nullable'
+        ]);
+
+        $administration->update($feilds);
+
+        return redirect()->route('administration')->with('success', 'Updated');
+
     }
 
     /**
@@ -61,6 +80,10 @@ class AdministrationController extends Controller
      */
     public function destroy(Administration $administration)
     {
-        //
+
+        $administration->delete();
+
+        return redirect()->route('administration')->with('success', 'Deleted');
+    
     }
 }
