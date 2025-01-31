@@ -30,17 +30,17 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
-    public function isPrincipal()
+    public function getIsPrincipalAttribute()
     {
-        $this->role = 'principal';
+       return $this->role === 'principal';
     }
-    public function isAdministrator()
+    public function getIsAdministratorAttribute()
     {
-        $this->role = 'administration';
+        return $this->role === 'administration';
     }
-    public function isTeacher()
+    public function getIsTeacherAttribute()
     {
-        $this->role = 'teacher';
+       return  $this->role === 'teacher';
     }
 
     /**
