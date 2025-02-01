@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
-    public function create(){
+    public function create()
+    {
         return view('users.create');
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $fields = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'],
-            'password' => ['required', 'string', 'confirmed'], 
+            'password' => ['required', 'string', 'confirmed'],
             'role' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'max:255'],
         ]);
@@ -28,7 +30,8 @@ class UserController extends Controller
 
         return redirect()->route('users')->with('success', 'Created User Successffully');
     }
-    public function status(Request $request, $id){
+    public function status(Request $request, $id)
+    {
         $request->validate([
             'status' => 'required|string|in:active,pending',
         ]);
@@ -36,10 +39,11 @@ class UserController extends Controller
 
         $user->status = $request->status;
         $user->save();
-         
+
         return redirect()->back()->with('success', 'Status Edited Successfully');
     }
-    public function edit(User $user){
+    public function edit(User $user)
+    {
         return view('users.edit', compact('user'));
     }
     public function update(Request $request, User $user)
@@ -48,28 +52,29 @@ class UserController extends Controller
         $fields = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'string', 'confirmed'], 
+            'password' => ['nullable', 'string', 'confirmed'],
             'role' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'max:255'],
         ]);
-    
-        
+
+
         if ($request->filled('password')) {
             $fields['password'] = bcrypt($request->password);
         } else {
-            
+
             unset($fields['password']);
         }
-    
-        
+
+
         $user->update($fields);
-    
+
         // Redirect with success message
         return redirect()->route('users')->with('success', 'Updated Successfully');
     }
-    
 
-    public function destroy(user $user){
+
+    public function destroy(user $user)
+    {
         if (Auth::user()->is_principal) {
             if ($user) {
                 $user->delete();
