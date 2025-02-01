@@ -40,7 +40,13 @@
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-
+                    <div class="flex flex-col space-y-2">
+                        <label for="password_confirmation" class="font-semibold text-gray-700">Confirm Password</label>
+                        <input type="password" name="password_confirmation"
+                            class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2
+                             focus:ring-blue-500" required minlength="8">
+                    </div>
+                    
                     <!-- Role Field -->
                     <div class="flex flex-col space-y-2">
                         <label for="role" class="block text-sm font-medium text-gray-700">Select Role</label>
