@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function create(){
+        return view('users.create');
+    }
     public function status(Request $request, $id){
         $request->validate([
             'status' => 'required|string|in:active,pending',
