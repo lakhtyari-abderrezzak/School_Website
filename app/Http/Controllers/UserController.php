@@ -12,6 +12,22 @@ class UserController extends Controller
     public function create(){
         return view('users.create');
     }
+    public function store(Request $request){
+        $fields = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'],
+            'password' => ['required', 'string', 'confirmed'], 
+            'role' => ['required', 'string', 'max:255'],
+            'status' => ['required', 'string', 'max:255'],
+        ]);
+        if ($request->filled('password')) {
+            $fields['password'] = bcrypt($request->password);
+        }
+
+        User::create($fields);
+
+        return redirect()->route('users')->with('success', 'Created User Successffully');
+    }
     public function status(Request $request, $id){
         $request->validate([
             'status' => 'required|string|in:active,pending',
