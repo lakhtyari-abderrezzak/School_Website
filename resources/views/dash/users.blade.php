@@ -7,6 +7,8 @@
 
             </div>
             <h2 class="text-2xl font-semibold mb-6">Users</h2>
+
+            <a href="{{route('users.create')}}" class="text-white bg-indigo-600 py-2 px-4 my-4 rounded-lg">Create a User</a>
             <!-- Table -->
             <div class="overflow-x-auto">
 
