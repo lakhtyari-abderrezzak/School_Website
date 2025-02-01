@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Administration;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdministrationController extends Controller
 {
@@ -80,10 +81,15 @@ class AdministrationController extends Controller
      */
     public function destroy(Administration $administration)
     {
-
-        $administration->delete();
-
-        return redirect()->route('administration')->with('success', 'Deleted');
-    
+        if (Auth::user()->is_principal) {
+            if ($administration) {
+                $administration->delete();
+                return redirect()->route('administration')->with('success', 'Deleted');
+            } else {
+                return redirect()->route('administration')->with('error', 'No records!');
+            }
+        } else {
+            return redirect()->route('administration')->with('error', 'Not Allowed To Delete!');
+        }
     }
 }
