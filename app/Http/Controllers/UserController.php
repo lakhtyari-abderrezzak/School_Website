@@ -22,19 +22,32 @@ class UserController extends Controller
     public function edit(User $user){
         return view('users.edit', compact('user'));
     }
-    public function Update(Request $request, User $user) {
-        $feilds = $request->validate([
+    public function update(Request $request, User $user)
+    {
+        // Validate the input fields
+        $fields = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'string', 'confirmed'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'string', 'confirmed'], 
             'role' => ['required', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:255']
+            'status' => ['required', 'string', 'max:255'],
         ]);
-
-        $user->update($feilds);
+    
         
-        return redirect()->route('teachers')->with('success', 'Updated Successfully');
+        if ($request->filled('password')) {
+            $fields['password'] = bcrypt($request->password);
+        } else {
+            
+            unset($fields['password']);
+        }
+    
+        
+        $user->update($fields);
+    
+        // Redirect with success message
+        return redirect()->route('users')->with('success', 'Updated Successfully');
     }
+    
 
     public function destroy(user $user){
         if (Auth::user()->is_principal) {
