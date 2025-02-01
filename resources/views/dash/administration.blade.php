@@ -3,10 +3,15 @@
         <x-side></x-side>
         <div class="flex-1 p-6">
             <h2 class="text-2xl font-semibold mb-6">Administraion</h2>
-            <a class=" text-white bg-indigo-600 hover:bg-indigo-800 py-2 px-4 rounded-lg my-4 " href="{{route('administration.create')}}">Create New Adminstration</a>
+            <a class=" text-white bg-indigo-600 hover:bg-indigo-800 py-2 px-4 rounded-lg my-4 "
+                href="{{ route('administration.create') }}">Create New Adminstration</a>
             <!-- Table -->
             <div class="overflow-x-auto mt-2">
-                <x-success />
+                @if (session('success'))
+                    <x-success />
+                @elseif(session('error'))
+                    <x-errors />
+                @endif
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-indigo-600 text-white">
                         <tr>

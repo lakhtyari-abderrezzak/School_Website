@@ -10,7 +10,11 @@
             <!-- Table -->
             <div class="overflow-x-auto">
 
-                <x-success />
+                @if (session('success'))
+                    <x-success />
+                @elseif(session('error'))
+                    <x-errors />
+                @endif
 
                 <form method="GET" action="{{ route('users') }}"
                     class="my-4 flex items-center space-x-4 w-full sm:w-1/2 lg:w-1/3 mx-auto">

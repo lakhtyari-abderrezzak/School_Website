@@ -10,7 +10,11 @@
             <!-- Table -->
             <div class="overflow-x-auto mt-4">
 
-                <x-success />
+                @if (session('success'))
+                    <x-success />
+                @elseif(session('error'))
+                    <x-errors />
+                @endif
 
 
                 <table class="min-w-full bg-white border border-gray-300">

@@ -2,7 +2,11 @@
     <div class="flex h-screen">
         <x-side></x-side>
         <div class="flex-1 p-6">
-            <x-success />
+            @if (session('success'))
+                    <x-success />
+                @elseif(session('error'))
+                    <x-errors />
+                @endif
             <h2 class="text-2xl font-semibold mb-6">Teachers</h2>
             <!-- Table -->
             <div class="overflow-x-auto">
