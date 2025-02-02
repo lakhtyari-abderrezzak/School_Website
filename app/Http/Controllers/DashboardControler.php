@@ -66,4 +66,11 @@ class DashboardControler extends Controller
         $subjects = Subject::all();
         return view('dash.classes', compact('subjects'));
     }
+
+    public function studentDashboard(){
+        return view('students.dashboard');
+    }
+    public function teacherDashboard(){
+        return view('teachers.dashboard');
+    }
 }
