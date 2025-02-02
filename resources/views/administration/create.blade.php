@@ -15,7 +15,7 @@
                         class="form-control border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('user_id') }}">
                         <option disabled selected>...</option>
                             @foreach ($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                            <option {{$user->administration ? 'disabled' : '' ;}} value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                         </select>
                         @error('user_id')

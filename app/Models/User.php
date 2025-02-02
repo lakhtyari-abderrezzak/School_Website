@@ -29,6 +29,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
+    public function administration()
+    {
+        return $this->hasOne(Administration::class);
+    }
 
     public function getIsPrincipalAttribute()
     {
