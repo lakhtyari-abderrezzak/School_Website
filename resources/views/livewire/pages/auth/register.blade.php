@@ -33,9 +33,17 @@ new #[Layout('layouts.guest')] class extends Component {
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        if ($user->role == 'administration' || $user->role == 'principal') {
+            return redirect()->route('dashboard');
+        } elseif ($user->role == 'teacher') {
+            return redirect()->route('teacher.dashboard');
+        } elseif ($user->role == 'student') {
+            return redirect()->route('student.dashboard');
+        }
+        return redirect()->route('home');
     }
-}; ?>
+}; 
+?>
 
 <div>
     <form wire:submit="register">
@@ -58,7 +66,7 @@ new #[Layout('layouts.guest')] class extends Component {
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <select wire:model="role" name="role" class="w-full">
-                <option selected >...</option>
+                <option selected>...</option>
                 <option value="teacher">Teacher</option>
                 <option value="student">Student</option>
             </select>
