@@ -26,6 +26,12 @@ Route::get('dashboard/teacher', [DashboardControler::class, 'teachers'])
 Route::get('dashboard/classes', [DashboardControler::class, 'classes'])
     ->middleware(['auth', 'verified', 'isAdmin'])
     ->name('classes');
+Route::get('student/dashboard', [DashboardControler::class, 'studentDashboard'])
+    ->middleware(['auth', 'verified', 'isStudent'])
+    ->name('student.dashboard');
+Route::get('teacher/dashboard', [DashboardControler::class, 'teacherDashboard'])
+    ->middleware(['auth', 'verified', 'isTeacher'])
+    ->name('teacher.dashboard');
 Route::get('dashboard/administration', [DashboardControler::class, 'administration'])
     ->middleware(['auth', 'verified', 'isAdmin'])
     ->name('administration');
