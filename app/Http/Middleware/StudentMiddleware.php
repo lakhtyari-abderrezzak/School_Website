@@ -17,6 +17,10 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (Auth::user()->role !== 'student' ) {
+            abort(403);
+        }
+        
         return $next($request);
     }
 }
