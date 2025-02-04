@@ -6,6 +6,7 @@ use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
@@ -30,9 +31,9 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
-            'name' =>'required|max:100',
+            'name' => 'required|max:100',
         ]);
 
         Subject::create([
@@ -63,7 +64,7 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $request->validate([
-            'name' =>'required|max:100',
+            'name' => 'required|max:100',
         ]);
 
         $subject->update([
@@ -77,10 +78,12 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        $subject->delete();
-
-        return redirect()->route('classes')->with('success', 'Deleted Successfully');
-
+        if (Auth::user()->is_principal) {
+            $subject->delete();
+            return redirect()->route('classes')->with('success', 'Deleted Successfully');
+        } else {
+            return redirect()->route('classes')->with('error', 'Action Not Authorised');
+        }
 
     }
 }
