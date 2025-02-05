@@ -22,13 +22,15 @@ class DashboardControler extends Controller
     public function teachers(Request $request)
     {
         $searchTerm = $request->search;
-
-        $teachers = Teacher::when($searchTerm, function($query, $searchTerm){
-            $query->where('full_name', 'like', "%$searchTerm%");
-            
-        })->paginate(15);
+    
+        $teachers = Teacher::when($searchTerm, function($query, $searchTerm) {
+                $query->where('full_name', 'like', "%$searchTerm%");
+            })
+            ->paginate(15);
+    
         return view('dash.teachers', compact('teachers'));
     }
+    
     public function administration()
     {
         $administrations = Administration::get();
@@ -58,12 +60,12 @@ class DashboardControler extends Controller
     }
 
     // Get paginated users
-    $users = $query->paginate(10);
+    $users = $query->latest()->paginate(15);
 
         return view('dash.users', compact('users'));
     }
     public function classes(){
-        $subjects = Subject::all();
+        $subjects = Subject::with(['teacher', 'students'])->latest()->paginate(10);
         return view('dash.classes', compact('subjects'));
     }
 
