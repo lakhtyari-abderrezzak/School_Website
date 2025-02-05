@@ -46,7 +46,7 @@ Route::resource('teachers', TeacherController::class)
 Route::resource('administration', AdministrationController::class)
     ->middleware(['auth', 'verified', 'isAdmin']);
 Route::resource('students', StudentController::class)
-    ->middleware(StudentMiddleware::class);
+    ->middleware(['auth', 'verified', 'isAdmin']);
 Route::resource('subjects', SubjectController::class)
     ->middleware(['auth', 'verified', 'isAdmin']);
 
