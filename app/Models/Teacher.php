@@ -13,8 +13,8 @@ class Teacher extends Model
         'user_id', 'subject_id', 'full_name', 'phone', 
     ];
 
-    public function subject(){
-        return $this->belongsTo(Subject::class);
+    public function subjects(){
+        return $this->hasMany(Subject::class);
     }
     public function user(){
         return $this->belongsTo(User::class);
