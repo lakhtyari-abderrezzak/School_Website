@@ -1,5 +1,5 @@
 @if(session('success'))
-    <div id="success-message" class="bg-green-100 text-green-700 p-4 rounded-md mb-4 opacity-100 transition-opacity duration-500">
+    <div id="success-message" class="bg-green-100 text-green-700 p-4 rounded-md mb-4 opacity-100 transition-opacity duration-500 my-8">
         <strong>Success!</strong> {{ session('success') }}
     </div>
 
