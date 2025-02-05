@@ -34,13 +34,13 @@ new #[Layout('layouts.guest')] class extends Component {
         Auth::login($user);
 
         if ($user->role == 'administration' || $user->role == 'principal') {
-            return redirect()->route('dashboard');
+          redirect()->route('dashboard');
         } elseif ($user->role == 'teacher') {
-            return redirect()->route('teacher.dashboard');
+          redirect()->route('teacher.dashboard');
         } elseif ($user->role == 'student') {
-            return redirect()->route('student.dashboard');
+          redirect()->route('student.dashboard');
         }
-        return redirect()->route('home');
+      redirect()->route('home');
     }
 }; 
 ?>
