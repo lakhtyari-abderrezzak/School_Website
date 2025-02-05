@@ -9,11 +9,11 @@
             @endif
 
             <h2 class="text-2xl font-semibold mb-6">Teachers</h2>
+            <a wire:navigate href="{{ route('teachers.create') }}"
+                class="text-white bg-indigo-600 hover:bg-indigo-800 rounded-lg p-2 ">Add a New Teacher</a>
 
             @if (!$teachers->isEmpty())
                 <div class="overflow-x-auto">
-                    <a href="{{ route('teachers.create') }}"
-                        class="text-white bg-indigo-600 hover:bg-indigo-800 rounded-lg p-2 ">Add a New Teacher</a>
                     <form method="GET" action="{{ route('teachers') }}"
                         class="my-4 flex items-center space-x-4 w-full sm:w-1/2 lg:w-1/3 mx-auto">
                         <!-- Search input with design improvements -->
